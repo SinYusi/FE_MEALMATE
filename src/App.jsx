@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import styled from "styled-components";
+import BottomNav from "./components/BottomNav";
+import Main from "./pages/Main/Main";
+import MobileMain from "./pages/Main/MobileMain";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <WholeContainer>
+      {isMobile ? <BottomNav /> : <Navbar />}
+      <Routes>
+        <Route path="/" element={isMobile ? <MobileMain /> : <Main />} />
+      </Routes>
+    </WholeContainer>
+  );
 }
 
-export default App
+const WholeContainer = styled.div`
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+
+  @media (max-width: 768px) {
+    background-color: lightgray;
+  }
+
+  @media (min-width: 769px) {
+    background-color: white;
+  }
+`;
+
+export default App;
