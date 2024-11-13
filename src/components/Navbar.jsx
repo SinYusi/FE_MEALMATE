@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import OrangeBorderTextField from "./OrangeBorderTextField";
 import logo from "../assets/logo.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IconButton, InputAdornment } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const handleSearch = () => {
     navigate(`/search/${query}`);
@@ -20,14 +21,27 @@ const Navbar = () => {
     }
   }
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    }
+  }, [])
+
   return (
     <NavbarContainer>
-      <img src={logo} alt="로고" style={{ width: 50, height: 50, cursor: "pointer" }} onClick={() => navigate('/')} />
+      <img src={logo} alt="로고" style={{ width: 50, height: 50, cursor: "pointer", margin: 10 }} onClick={() => navigate('/')} />
+      <p style={{ cursor: "pointer", color: "black", margin: "0px 10px" }}>게시글</p>
       <OrangeBorderTextField
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
         inputProps={{ style: { height: 20, padding: "10px 5px" } }}
-        style={{ width: 200, paddingRight: 0 }}
+        style={{ width: windowWidth > 1200 ? "600px" : "400px", paddingRight: 0, margin: 10 }}
         InputProps={{
           endAdornment: (
             <SearchAdornment handleSearch={handleSearch} />
