@@ -8,7 +8,7 @@ const useSearch = async () => {
     axios.get(`${apiUrl}/restaurant/search`, {
       restaurantName,
     }).then(response => {
-      setSearchRestaurant(response.data);
+      setSearchRestaurants(response.data);
     }).catch(error => {
       console.error("검색 도중 오류 발생")
     })

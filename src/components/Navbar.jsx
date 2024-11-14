@@ -2,9 +2,11 @@ import styled from "styled-components";
 import OrangeBorderTextField from "./OrangeBorderTextField";
 import logo from "../assets/logo.png";
 import { useEffect, useState } from "react";
-import { IconButton, InputAdornment } from "@mui/material";
+import { Button, IconButton, InputAdornment } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from "react-router-dom";
+import OrangeBorderButton from "./OrangeBorderButton";
+import OrangeFilledButton from "./OrangeFilledButton";
 
 const Navbar = () => {
   const [query, setQuery] = useState("");
@@ -49,6 +51,8 @@ const Navbar = () => {
           style: { paddingRight: 0 },
         }}
       />
+      <OrangeBorderButton onClick={() => navigate("/login")}>로그인</OrangeBorderButton>
+      <OrangeFilledButton onClick={() => navigate("/signin")}>가입하기</OrangeFilledButton>
     </NavbarContainer>
   );
 };
