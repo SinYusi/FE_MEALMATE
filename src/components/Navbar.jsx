@@ -37,13 +37,13 @@ const Navbar = () => {
 
   return (
     <NavbarContainer>
-      <img src={logo} alt="로고" style={{ width: 50, height: 50, cursor: "pointer", margin: 10 }} onClick={() => navigate('/')} />
-      <p style={{ cursor: "pointer", color: "black", margin: "0px 10px" }}>게시글</p>
+      <img src={logo} alt="로고" style={{ width: 50, height: 50, cursor: "pointer", margin: 15 }} onClick={() => navigate('/')} />
+      <p style={{ cursor: "pointer", color: "black", margin: "0px 15px" }}>게시글</p>
       <OrangeBorderTextField
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
         inputProps={{ style: { height: 20, padding: "10px 5px" } }}
-        style={{ width: windowWidth > 1200 ? "600px" : "400px", paddingRight: 0, margin: 10 }}
+        style={{ width: windowWidth > 1200 ? "600px" : "400px", paddingRight: 0, margin: 15 }}
         InputProps={{
           endAdornment: (
             <SearchAdornment handleSearch={handleSearch} />

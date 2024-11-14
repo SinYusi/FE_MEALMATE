@@ -9,7 +9,6 @@ const OrangeBorderButton = ({ children, ...props }) => {
 
 const Btn = styled(Button)`
   && {
-    margin-left: 20px;
     min-width: 80px;
     white-space: nowrap;
     color: #ff9800;

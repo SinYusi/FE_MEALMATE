@@ -9,7 +9,6 @@ const OrangeFilledButton = ({ children, ...props }) => {
 
 const FilledButton = styled(Button)`
   && {
-    margin-left: 20px;
     min-width: 80px;
     white-space: nowrap;
     background-color: #ff9800;
