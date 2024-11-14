@@ -51,8 +51,8 @@ const Navbar = () => {
           style: { paddingRight: 0 },
         }}
       />
-      <OrangeBorderButton onClick={() => navigate("/login")}>로그인</OrangeBorderButton>
-      <OrangeFilledButton onClick={() => navigate("/signin")}>가입하기</OrangeFilledButton>
+      <OrangeBorderButton onClick={() => navigate("/login")} style={{ marginLeft: "15px" }}>로그인</OrangeBorderButton>
+      <OrangeFilledButton onClick={() => navigate("/signin")} style={{ marginLeft: "25px" }}>가입하기</OrangeFilledButton>
     </NavbarContainer>
   );
 };
