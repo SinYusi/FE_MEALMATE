@@ -5,7 +5,7 @@ import styled from "styled-components";
 import BottomNav from "./components/BottomNav";
 import Main from "./pages/Main/Main";
 import MobileMain from "./pages/Main/MobileMain";
-import Login from "./pages/Main/Login/Login";
+import Login from "./pages/Login/Login";
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
