@@ -5,6 +5,7 @@ import styled from "styled-components";
 import BottomNav from "./components/BottomNav";
 import Main from "./pages/Main/Main";
 import MobileMain from "./pages/Main/MobileMain";
+import Login from "./pages/Main/Login/Login";
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
@@ -20,6 +21,7 @@ function App() {
       {isMobile ? <BottomNav /> : <Navbar />}
       <Routes>
         <Route path="/" element={isMobile ? <MobileMain /> : <Main />} />
+        <Route path='/login' element={<Login />} />
       </Routes>
     </WholeContainer>
   );
