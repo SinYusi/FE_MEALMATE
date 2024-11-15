@@ -7,11 +7,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from "react-router-dom";
 import OrangeBorderButton from "./OrangeBorderButton";
 import OrangeFilledButton from "./OrangeFilledButton";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/authSlice";
 
 const Navbar = () => {
   const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
   const handleSearch = () => {
     navigate(`/search/${query}`);
@@ -21,6 +25,11 @@ const Navbar = () => {
     if (e.key === "Enter") {
       handleSearch();
     }
+  }
+
+  const logoutHandle = async (e) => {
+    dispatch(logout());
+    navigate('/');
   }
 
   useEffect(() => {
@@ -51,8 +60,8 @@ const Navbar = () => {
           style: { paddingRight: 0 },
         }}
       />
-      <OrangeBorderButton onClick={() => navigate("/login")}>로그인</OrangeBorderButton>
-      <OrangeFilledButton onClick={() => navigate("/signin")}>가입하기</OrangeFilledButton>
+      <OrangeBorderButton onClick={() => isAuthenticated ? logoutHandle() : navigate("/login")} style={{ marginLeft: "15px" }}>{isAuthenticated ? "로그아웃" : "로그인"}</OrangeBorderButton>
+      {isAuthenticated ? null : <OrangeFilledButton onClick={() => navigate("/signin")} style={{ marginLeft: "25px" }}>가입하기</OrangeFilledButton>}
     </NavbarContainer>
   );
 };

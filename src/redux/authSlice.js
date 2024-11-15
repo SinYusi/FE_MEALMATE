@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Cookies } from 'react-cookie';
 
 const initialState = {
   isAuthenticated: false,
@@ -31,3 +32,12 @@ const authSlice = createSlice({
 });
 
 export const { loginSuccess, logoutSuccess, loginFailure } = authSlice.actions;
+
+export const logout = () => (dispatch) => {
+  const cookies = new Cookies();
+  cookies.remove('access_token', { path: '/' });
+
+  dispatch(logoutSuccess());
+}
+
+export default authSlice.reducer;
