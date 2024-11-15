@@ -8,19 +8,35 @@ import MobileMain from "./pages/Main/MobileMain";
 import Login from "./pages/Login/Login";
 
 function App() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(checkIsMobile());
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    const handleResize = () => setIsMobile(checkIsMobile());
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  function checkIsMobile() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    return /android|iPad|iPhone|iPod/i.test(userAgent);
+  }
+
+  if (isMobile) {
+    return (
+      <WholeContainer>
+        <BottomNav />
+        <Routes>
+          <Route path="/" element={<MobileMain />} />
+        </Routes>
+      </WholeContainer>
+    )
+  }
+
   return (
     <WholeContainer>
-      {isMobile ? <BottomNav /> : <Navbar />}
+      <Navbar />
       <Routes>
-        <Route path="/" element={isMobile ? <MobileMain /> : <Main />} />
+        <Route path="/" element={<Main />} />
         <Route path='/login' element={<Login />} />
       </Routes>
     </WholeContainer>
@@ -31,6 +47,7 @@ const WholeContainer = styled.div`
   position: relative;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 
   @media (max-width: 768px) {
     background-color: lightgray;
