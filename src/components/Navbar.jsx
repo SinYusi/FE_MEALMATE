@@ -47,7 +47,7 @@ const Navbar = () => {
   return (
     <NavbarContainer>
       <img src={logo} alt="로고" style={{ width: 50, height: 50, cursor: "pointer", margin: 15 }} onClick={() => navigate('/')} />
-      <p style={{ cursor: "pointer", color: "black", margin: "0px 15px" }}>게시글</p>
+      <p style={{ cursor: "pointer", color: "black", margin: "0px 15px" }} onClick={() => navigate('/board')}>게시글</p>
       <OrangeBorderTextField
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}

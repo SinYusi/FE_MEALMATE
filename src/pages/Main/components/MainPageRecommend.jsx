@@ -59,7 +59,7 @@ const MainPageRecommend = () => {
           </BtnContainer>
           :
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: 150 }}>
-            <p>로그인하면 추천받을 수 있어요!</p>
+            <p>로그인하면 알맞는 식당 추천해드려요!</p>
             <Link to="/login">로그인하기</Link>
           </div>
       }

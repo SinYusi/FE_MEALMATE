@@ -8,6 +8,7 @@ import MobileMain from "./pages/Main/MobileMain";
 import Login from "./pages/Login/Login";
 import DetailRestaurant from "./pages/DetailRestaurant/DetailRestaurant";
 import { createTheme, ThemeProvider } from "@mui/material";
+import Board from "./pages/Board/Board";
 
 const theme = createTheme({
   typography: {
@@ -50,6 +51,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path='/login' element={<Login />} />
           <Route path='/restaurant/:id' element={<DetailRestaurant />} />
+          <Route path="/board" element={<Board />} />
         </Routes>
       </WholeContainer>
     </ThemeProvider>
