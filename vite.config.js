@@ -1,7 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-})
+  base: '/', // 배포 경로 설정
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: undefined, // 코드 스플리팅 설정
+      },
+    },
+  },
+});
