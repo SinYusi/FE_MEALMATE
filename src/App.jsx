@@ -6,6 +6,14 @@ import BottomNav from "./components/BottomNav";
 import Main from "./pages/Main/Main";
 import MobileMain from "./pages/Main/MobileMain";
 import Login from "./pages/Login/Login";
+import DetailRestaurant from "./pages/DetailRestaurant/DetailRestaurant";
+import { createTheme, ThemeProvider } from "@mui/material";
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'SUIT-Regular, sans-serif',
+  },
+});
 
 function App() {
   const [isMobile, setIsMobile] = useState(checkIsMobile());
@@ -23,23 +31,28 @@ function App() {
 
   if (isMobile) {
     return (
-      <WholeContainer>
-        <BottomNav />
-        <Routes>
-          <Route path="/" element={<MobileMain />} />
-        </Routes>
-      </WholeContainer>
+      <ThemeProvider theme={theme}>
+        <WholeContainer>
+          <BottomNav />
+          <Routes>
+            <Route path="/" element={<MobileMain />} />
+          </Routes>
+        </WholeContainer>
+      </ThemeProvider>
     )
   }
 
   return (
-    <WholeContainer>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path='/login' element={<Login />} />
-      </Routes>
-    </WholeContainer>
+    <ThemeProvider theme={theme}>
+      <WholeContainer>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/restaurant/:id' element={<DetailRestaurant />} />
+        </Routes>
+      </WholeContainer>
+    </ThemeProvider>
   );
 }
 

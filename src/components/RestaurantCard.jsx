@@ -82,7 +82,7 @@ const LikeCount = styled.p`
 const IsOpen = styled.p`
   position: absolute;
   right: 20px;
-  top: 15px;
+  top: 0px;
   mragin: 0;
   font-size: 14px;
 `

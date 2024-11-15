@@ -18,7 +18,7 @@ const LoginPage = styled.div`
   margin-top: 60px;
   background-color: #f1f3f5;
   width: 100%;
-  height: 100%;
+  height: 93%;
   overflow: hidden;
 `
 
