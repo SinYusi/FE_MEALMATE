@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
-const OrangeBorderBox = ({ children }) => {
+const OrangeBorderBox = ({ children, className }) => {
   return (
-    <Box>
+    <Box className={className}>
       {children}
     </Box>
   )
@@ -10,7 +10,7 @@ const OrangeBorderBox = ({ children }) => {
 
 const Box = styled.div`
   border-radius: 10px;
-  border-color: #ff9800;
+  border: 1px solid #ff9800;
 `
 
 export default OrangeBorderBox
