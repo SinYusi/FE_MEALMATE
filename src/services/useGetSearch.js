@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react"
 
-const useSearch = async () => {
+const useGetSearch = async () => {
   const [searchRestaurants, setSearchRestaurants] = useState("");
   const search = (restaurantName) => {
     const apiUrl = import.meta.env.VITE_API_URL;
@@ -16,4 +16,4 @@ const useSearch = async () => {
   return { searchRestaurants, search };
 }
 
-export default useSearch;
+export default useGetSearch;
