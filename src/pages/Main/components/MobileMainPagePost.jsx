@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Divider from "../../../components/Divider";
 import calculateTimeAgo from "../../../utils/calculateTimeAgo";
 
-const MainPagePost = () => {
+const MobileMainPagePost = () => {
   const { boardList, getBoardList } = useGetBoardList();
   const navigate = useNavigate();
 
@@ -44,9 +44,9 @@ const MainPagePostContainer = styled(OrangeBorderBox)`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 400px;
+  width: 350px;
   height: 220px;
-  margin: 20px;
+  margin: 10px;
 `
 
 const TitleBox = styled.div`
@@ -86,4 +86,4 @@ const TimeAgo = styled.div`
   color: #888;
 `;
 
-export default MainPagePost;
+export default MobileMainPagePost;
