@@ -2,13 +2,14 @@ import styled from "styled-components";
 import OrangeBorderTextField from "./OrangeBorderTextField";
 import logo from "../assets/logo.png";
 import { useEffect, useState } from "react";
-import { Button, IconButton, InputAdornment } from "@mui/material";
+import { Button, IconButton, InputAdornment, Menu, MenuItem } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from "react-router-dom";
 import OrangeBorderButton from "./OrangeBorderButton";
 import OrangeFilledButton from "./OrangeFilledButton";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/authSlice";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Navbar = () => {
   const [query, setQuery] = useState("");
@@ -62,6 +63,7 @@ const Navbar = () => {
       />
       <OrangeBorderButton onClick={() => isAuthenticated ? logoutHandle() : navigate("/login")} style={{ marginLeft: "15px" }}>{isAuthenticated ? "로그아웃" : "로그인"}</OrangeBorderButton>
       {isAuthenticated ? null : <OrangeFilledButton onClick={() => navigate("/signin")} style={{ marginLeft: "25px" }}>가입하기</OrangeFilledButton>}
+      {isAuthenticated ? <UserMenu /> : null}
     </NavbarContainer>
   );
 };
@@ -73,6 +75,48 @@ const SearchAdornment = ({ handleSearch }) => {
         <SearchIcon />
       </IconButton>
     </InputAdornment>
+  )
+}
+
+const UserMenu = () => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const navigate = useNavigate();
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleClose = (url = null) => {
+    setAnchorEl(null);
+    if (url) {
+      navigate(url);
+    }
+  }
+
+  return (
+    <>
+      <IconButton
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        style={{ margin: "0px 10px" }}
+      >
+        <AccountCircleIcon />
+      </IconButton>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={() => handleClose()}
+        MenuListProps={{
+          'aria-labelledby': 'asic-button',
+        }}
+      >
+        <MenuItem onClick={() => handleClose("/mypage")}>마이페이지</MenuItem>
+        <MenuItem onClick={() => handleClose("/wish")}>내 찜</MenuItem>
+        <MenuItem onClick={() => handleClose("/message")}>내 쪽지</MenuItem>
+      </Menu>
+    </>
   )
 }
 

@@ -6,11 +6,13 @@ import axios from "axios";
 import OrangeBorderButton from "../../../components/OrangeBorderButton";
 import OrangeFilledButton from "../../../components/OrangeFilledButton";
 import OrangeBorderTextField from "../../../components/OrangeBorderTextField";
+import useAddBoard from "../../../services/useAddBoard";
 
 const AddBoardPopup = ({ onClose, restaurantId }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [cookies] = useCookies(['access_token']);
+  const addBoard = useAddBoard();
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'; // 스크롤 막기
@@ -35,30 +37,13 @@ const AddBoardPopup = ({ onClose, restaurantId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = cookies.access_token
-    if (title && content) {
-      try {
-        await axios.post('https://api.meal-mate.shop/api/board', {
-          title: title,
-          content: content,
-          restaurantId: restaurantId,
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-        console.log('게시물 추가 완료');
-        onClose(true);
-      } catch (error) {
-        console.error(error)
-      }
-    }
     if (title == null) {
       alert('제목을 작성해주세요')
     }
     if (content == null) {
       alert('내용을 작성해주세요')
     }
+    await addBoard(title, content, restaurantId, onClose);
   }
 
   return (

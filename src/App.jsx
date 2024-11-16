@@ -9,6 +9,12 @@ import Login from "./pages/Login/Login";
 import DetailRestaurant from "./pages/DetailRestaurant/DetailRestaurant";
 import { createTheme, ThemeProvider } from "@mui/material";
 import Board from "./pages/Board/Board";
+import DetailBoard from "./pages/DetailBoard/DetailBoard";
+import SignUp from "./pages/SignIn/SignUp";
+import Mypage from "./pages/Mypage/Mypage";
+import Wish from "./pages/Wish/Wish";
+import Message from "./pages/Message/Message";
+import DetailMessage from "./pages/DetailMessage/DetailMessage";
 
 const theme = createTheme({
   typography: {
@@ -50,8 +56,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/signin' element={<SignUp />} />
           <Route path='/restaurant/:id' element={<DetailRestaurant />} />
           <Route path="/board" element={<Board />} />
+          <Route path="/board/:id" element={<DetailBoard />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/wish" element={<Wish />} />
+          <Route path="/message" element={<Message />} />
+          <Route path="/message/:id" element={<DetailMessage />} />
         </Routes>
       </WholeContainer>
     </ThemeProvider>

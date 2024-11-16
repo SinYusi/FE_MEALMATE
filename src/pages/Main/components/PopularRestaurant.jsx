@@ -36,6 +36,7 @@ const PopularRestaurantContainer = styled(OrangeBorderBox)`
   width: 840px;
   height: 500px;
   margin: 20px;
+  overflow: hidden;
 `
 
 export default PopularRestaurant;

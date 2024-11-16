@@ -8,9 +8,6 @@ const OrangeBorderTextField = ({ ...props }) => {
 }
 
 const StyledTextField = styled(TextField)`
-  &&{
-    margin: 10px 0px;
-  }
 
   & .MuiOutlinedInput-root.Mui-focused fieldset {
     border-color: #ff9800;

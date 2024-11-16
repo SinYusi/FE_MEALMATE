@@ -60,7 +60,7 @@ const Category = styled(Chip)`
   && {
     margin-right: 8px;
     flex-shrink: 0;
-    border-color: ${props => props.isselected ? 'orange' : 'rgba(0, 0, 0, 0.23)'};
+    border-color: ${props => props.isSelected ? 'orange' : 'rgba(0, 0, 0, 0.23)'};
   }
 `;
 
