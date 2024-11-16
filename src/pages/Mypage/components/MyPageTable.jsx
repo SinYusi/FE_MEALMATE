@@ -50,7 +50,7 @@ const TableContainer = styled.table`
   border: 1px solid #bfbf92;
   border-top: 2px solid #ff9800;
   border-collapse: collapse;
-  width: 400px;
+  width: 350px;
 `
 
 const TableRow = styled.tr`
@@ -66,7 +66,7 @@ const TableHead = styled.th`
 
 const TableContent = styled.td`
   padding: .75em 0;
-  width: 270px;
+  width: 250px;
 `
 
 export default MypageTable;

@@ -5,6 +5,7 @@ const initialState = {
   isAuthenticated: false,
   email: "",
   authority: "",
+  tokenExpiry: null, // 토큰 만료 시간
   error: null,
 };
 
@@ -16,12 +17,14 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.email = action.payload.email;
       state.authority = action.payload.authority;
+      state.tokenExpiry = action.payload.tokenExpiry;
       state.error = null;
     },
     logoutSuccess(state) {
       state.isAuthenticated = false;
       state.email = "";
       state.authority = "";
+      state.tokenExpiry = null;
       state.error = null;
     },
     loginFailure(state, action) {
@@ -30,6 +33,7 @@ const authSlice = createSlice({
     },
   },
 });
+
 
 export const { loginSuccess, logoutSuccess, loginFailure } = authSlice.actions;
 

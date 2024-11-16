@@ -2,7 +2,6 @@ import styled from "styled-components"
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useGetNoteroomList from "../../../services/useGetNoteroomList";
-import calculateTimeAgo from "../../../utils/calculateTimeAgo";
 
 const MessageList = () => {
   const { noteroomList, getNoteroomList } = useGetNoteroomList();
@@ -11,8 +10,6 @@ const MessageList = () => {
   useEffect(() => {
     getNoteroomList();
   }, [getNoteroomList])
-
-  const lastTimeAgo = calculateTimeAgo(noteroomList.sendDt);
 
   return (
     <>
@@ -43,15 +40,6 @@ const MessageListContainer = styled.div`
   &: hover {
     background-color: #f1f3f5;
   };
-`
-
-const DateText = styled.p`
-  font-size: 15px;
-  color: #afafb2;
-  margin: 0;
-  postion: absolute;
-  right: 0;
-  top: 0;
 `
 
 export default MessageList;

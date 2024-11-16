@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import styled from "styled-components";
 import BottomNav from "./components/BottomNav";
@@ -15,6 +15,16 @@ import Mypage from "./pages/Mypage/Mypage";
 import Wish from "./pages/Wish/Wish";
 import Message from "./pages/Message/Message";
 import DetailMessage from "./pages/DetailMessage/DetailMessage";
+import MobileLogin from "./pages/Login/MobileLogin";
+import MobileSignup from "./pages/SignIn/MobileSignUp";
+import MobileDetailRestaurant from "./pages/DetailRestaurant/MobileDetailRestaurant";
+import MobileDetailBoard from "./pages/DetailBoard/MobileDetailBoard";
+import MobileBoard from "./pages/Board/MobileBoard";
+import MobileMypage from "./pages/Mypage/MoblieMyPage";
+import MobileWish from "./pages/Wish/MobileWish";
+import { useDispatch } from "react-redux";
+import MobileMessage from "./pages/Message/MobileMessage";
+import MobileDetailMessage from "./pages/DetailMessage/MobileDetailMessage";
 
 const theme = createTheme({
   typography: {
@@ -24,6 +34,7 @@ const theme = createTheme({
 
 function App() {
   const [isMobile, setIsMobile] = useState(checkIsMobile());
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleResize = () => setIsMobile(checkIsMobile());
@@ -31,22 +42,45 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const checkTokenExpiry = () => {
+      const state = store.getState().auth; // Redux 상태 가져오기
+      if (state.tokenExpiry && Date.now() > state.tokenExpiry) {
+        dispatch(logout());
+      }
+    };
+
+    const intervalId = setInterval(checkTokenExpiry, 1000); // 1초마다 확인
+    return () => clearInterval(intervalId); // 클린업
+  }, []);
+
   function checkIsMobile() {
     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
     return /android|iPad|iPhone|iPod/i.test(userAgent);
   }
 
+  const location = useLocation();
+
   if (isMobile) {
     return (
       <ThemeProvider theme={theme}>
         <WholeContainer>
-          <BottomNav />
+          {location.pathname !== '/login' && location.pathname !== '/signup' && <BottomNav />}
           <Routes>
             <Route path="/" element={<MobileMain />} />
+            <Route path="/login" element={<MobileLogin />} />
+            <Route path='/signup' element={<MobileSignup />} />
+            <Route path='/restaurant/:id' element={<MobileDetailRestaurant />} />
+            <Route path="/board" element={<MobileBoard />} />
+            <Route path="/board/:id" element={<MobileDetailBoard />} />
+            <Route path="/mypage" element={<MobileMypage />} />
+            <Route path="/wish" element={<MobileWish />} />
+            <Route path="/message" element={<MobileMessage />} />
+            <Route path="/message/:id" element={<MobileDetailMessage />} />
           </Routes>
         </WholeContainer>
       </ThemeProvider>
-    )
+    );
   }
 
   return (
