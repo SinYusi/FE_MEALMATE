@@ -9,7 +9,15 @@ const BoardCard = forwardRef(({ data, style }, ref) => {
   return (
     <BoardCardContainer style={style} onClick={() => navigate(`/board/${data.boardId}`)} ref={ref}>
       <InformationText>{data.nickname} · {data.department} · {calculateTimeAgo(data.lastTime)} 전</InformationText>
-      <Title>{data.title}</Title>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Title>{data.title}</Title>
+        {
+          data.isRecruitment ?
+            <InformationText style={{ marginLeft: 5, color: "orange" }}>모집 중</InformationText>
+            :
+            <InformationText style={{ marginLeft: 5 }}>모집 완료</InformationText>
+        }
+      </div>
       <Content>{data.content}</Content>
     </BoardCardContainer>
   )

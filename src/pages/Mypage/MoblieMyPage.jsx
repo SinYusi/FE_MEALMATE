@@ -6,9 +6,10 @@ import useGetMyInformation from "../../services/useGetMyInformation";
 import MypageTable from "./components/MyPageTable";
 import Logo from "../../components/Logo";
 import usePatchMyInformation from "../../services/usePatchMyInformation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import OrangeFilledButton from "../../components/OrangeFilledButton";
+import { logout } from "../../redux/authSlice";
 
 const MobileMypage = () => {
   const { myInformation, getMyInformation } = useGetMyInformation();
@@ -17,6 +18,7 @@ const MobileMypage = () => {
   const [isChanged, setIsChanged] = useState(false);
   const patchMyInformation = usePatchMyInformation();
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getMyInformation();
@@ -40,7 +42,7 @@ const MobileMypage = () => {
         <Logo style={{ margin: 20 }} />
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <h2>내 정보</h2>
-          <OrangeFilledButton style={{ height: 30, margin: 20 }}>로그아웃</OrangeFilledButton>
+          <OrangeFilledButton style={{ height: 30, margin: 20 }} onClick={() => dispatch(logout())}>로그아웃</OrangeFilledButton>
         </div>
         <MypageTable myInformation={myInformation} userCategory={userCategory} />
         <h2 style={{ marginTop: 10 }}>내 관심 카테고리</h2>

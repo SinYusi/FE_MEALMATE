@@ -22,9 +22,10 @@ import MobileDetailBoard from "./pages/DetailBoard/MobileDetailBoard";
 import MobileBoard from "./pages/Board/MobileBoard";
 import MobileMypage from "./pages/Mypage/MoblieMyPage";
 import MobileWish from "./pages/Wish/MobileWish";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MobileMessage from "./pages/Message/MobileMessage";
 import MobileDetailMessage from "./pages/DetailMessage/MobileDetailMessage";
+import { logout } from "./redux/authSlice";
 
 const theme = createTheme({
   typography: {
@@ -35,6 +36,7 @@ const theme = createTheme({
 function App() {
   const [isMobile, setIsMobile] = useState(checkIsMobile());
   const dispatch = useDispatch();
+  const tokenExpiry = useSelector(state => state.auth.tokenExpiry);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(checkIsMobile());
@@ -44,13 +46,12 @@ function App() {
 
   useEffect(() => {
     const checkTokenExpiry = () => {
-      const state = store.getState().auth; // Redux 상태 가져오기
-      if (state.tokenExpiry && Date.now() > state.tokenExpiry) {
+      if (tokenExpiry && Date.now() > tokenExpiry) {
         dispatch(logout());
       }
     };
 
-    const intervalId = setInterval(checkTokenExpiry, 1000); // 1초마다 확인
+    const intervalId = setInterval(checkTokenExpiry, 5000); // 1초마다 확인
     return () => clearInterval(intervalId); // 클린업
   }, []);
 

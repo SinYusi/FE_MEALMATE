@@ -14,9 +14,9 @@ import useDeleteBoard from "../../services/useDeleteBoard";
 import OrangeBorderTextField from "../../components/OrangeBorderTextField";
 import OrangeBorderButton from "../../components/OrangeBorderButton";
 import OrangeFilledButton from "../../components/OrangeFilledButton";
-import MobileMessagePopup from "./components/MobileMessagePopup";
+import usePatchRecruitment from "../../services/usePatchRecruitment";
 
-const MobileDetailBoard = () => {
+const DetailBoard = () => {
   const email = useSelector((state) => state.auth.email);
   const boardId = useParams().id;
   const { detailBoard, getDetailBoard } = useGetDetailBoard();
@@ -25,6 +25,7 @@ const MobileDetailBoard = () => {
   const [modifyTitle, setModifyTitle] = useState(detailBoard.title);
   const [modifyContent, setModifyContent] = useState(detailBoard.content);
   const deleteBoard = useDeleteBoard();
+  const patchRecruitment = usePatchRecruitment();
 
   useEffect(() => {
     getDetailBoard(boardId);
@@ -39,12 +40,16 @@ const MobileDetailBoard = () => {
     await deleteBoard(boardId);
   }
 
+  const updateRecruitment = async () => {
+    patchRecruitment(detailBoard.boardId)
+  }
+
   return (
     <Container>
       <Logo style={{ margin: 20, width: 300 }} />
       <DetailBoardContainer>
         {
-          isClickedSendBtn && <MobileMessagePopup setIsClickedSendBtn={setIsClickedSendBtn} opponentId={detailBoard.writerId} />
+          isClickedSendBtn && <MessagePopup setIsClickedSendBtn={setIsClickedSendBtn} opponentId={detailBoard.writerId} />
         }
         <div style={{ display: "flex", margin: "10px 20px 0px 20px", alignItems: "center" }}>
           {
@@ -65,9 +70,12 @@ const MobileDetailBoard = () => {
                     email === "" ?
                       null
                       :
-                      <IconButton onClick={() => setIsClickedSendBtn(true)} size="small">
-                        <SendIcon fontSize="small" />
-                      </IconButton>
+                      detailBoard.isRecruitment ?
+                        <IconButton onClick={() => setIsClickedSendBtn(true)} size="small">
+                          <SendIcon fontSize="small" />
+                        </IconButton>
+                        :
+                        null
                 }
               </>
               :
@@ -86,7 +94,21 @@ const MobileDetailBoard = () => {
             </div>
             :
             <>
-              <Title>{detailBoard.title}</Title>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Title>{detailBoard.title}</Title>
+                {
+                  email === detailBoard.email ?
+                    detailBoard.isRecruitment ?
+                      <OrangeBorderButton onClick={updateRecruitment}>모집 완료</OrangeBorderButton>
+                      :
+                      <InformationText>모집 완료</InformationText>
+                    :
+                    detailBoard.isRecruitment ?
+                      <InformationText style={{ color: "orange" }}>모집 중</InformationText>
+                      :
+                      <InformationText>모집 완료</InformationText>
+                }
+              </div>
               <Content>{detailBoard.content}</Content>
             </>
         }
@@ -97,7 +119,7 @@ const MobileDetailBoard = () => {
 
 const Container = styled.div`
   width: 100%;
-  margin: 60px 0px;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,11 +139,11 @@ const InformationText = styled.p`
 `
 
 const Title = styled.h3`
-  margin: 5px 20px 10px 20px;
+  margin: 10px 10px 10px 20px;
 `
 
 const Content = styled.p`
-  margin: 10px 20px 10px 20px
+  margin: 5px 20px 10px 20px
 `
 
-export default MobileDetailBoard;
+export default DetailBoard;

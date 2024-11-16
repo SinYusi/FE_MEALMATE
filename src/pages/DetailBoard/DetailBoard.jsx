@@ -14,6 +14,7 @@ import useDeleteBoard from "../../services/useDeleteBoard";
 import OrangeBorderTextField from "../../components/OrangeBorderTextField";
 import OrangeBorderButton from "../../components/OrangeBorderButton";
 import OrangeFilledButton from "../../components/OrangeFilledButton";
+import usePatchRecruitment from "../../services/usePatchRecruitment";
 
 const DetailBoard = () => {
   const email = useSelector((state) => state.auth.email);
@@ -24,6 +25,7 @@ const DetailBoard = () => {
   const [modifyTitle, setModifyTitle] = useState(detailBoard.title);
   const [modifyContent, setModifyContent] = useState(detailBoard.content);
   const deleteBoard = useDeleteBoard();
+  const patchRecruitment = usePatchRecruitment();
 
   useEffect(() => {
     getDetailBoard(boardId);
@@ -36,6 +38,10 @@ const DetailBoard = () => {
 
   const deleteBoardClick = async () => {
     await deleteBoard(boardId);
+  }
+
+  const updateRecruitment = async () => {
+    patchRecruitment(detailBoard.boardId)
   }
 
   return (
@@ -64,9 +70,12 @@ const DetailBoard = () => {
                     email === "" ?
                       null
                       :
-                      <IconButton onClick={() => setIsClickedSendBtn(true)} size="small">
-                        <SendIcon fontSize="small" />
-                      </IconButton>
+                      detailBoard.isRecruitment ?
+                        <IconButton onClick={() => setIsClickedSendBtn(true)} size="small">
+                          <SendIcon fontSize="small" />
+                        </IconButton>
+                        :
+                        null
                 }
               </>
               :
@@ -85,7 +94,21 @@ const DetailBoard = () => {
             </div>
             :
             <>
-              <Title>{detailBoard.title}</Title>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <Title>{detailBoard.title}</Title>
+                {
+                  email === detailBoard.email ?
+                    detailBoard.isRecruitment ?
+                      <OrangeBorderButton onClick={updateRecruitment}>모집 완료</OrangeBorderButton>
+                      :
+                      <InformationText>모집 완료</InformationText>
+                    :
+                    detailBoard.isRecruitment ?
+                      <InformationText style={{ color: "orange" }}>모집 중</InformationText>
+                      :
+                      <InformationText>모집 완료</InformationText>
+                }
+              </div>
               <Content>{detailBoard.content}</Content>
             </>
         }
@@ -116,53 +139,11 @@ const InformationText = styled.p`
 `
 
 const Title = styled.h3`
-  margin: 5px 20px 10px 20px;
+  margin: 10px 10px 10px 20px;
 `
 
 const Content = styled.p`
-  margin: 10px 20px 10px 20px
+  margin: 5px 20px 10px 20px
 `
-
-const ModifyTextField = styled(TextField)`
-  &&{
-    margin: 0px 20px 20px 20px;
-    width: 658px;
-  }
-
-  & .MuiOutlinedInput-root.Mui-focused fieldset {
-    border-color: #ff9800;
-  }
-
-  & .MuiInputLabel-root.Mui-focused {
-    color: #ff9800;
-  }
-`;
-
-const CancelBtn = styled(Button)`
-  && {
-    min-width: 80px;
-    width: 310px;
-    white-space: nowrap;
-    color: #ff9800;
-    border-color: #ff9800;
-    @media (max-width: 576px) {
-      font-size: 12px;
-      min-width: 60px;
-    }
-  }
-`;
-
-const OkBtn = styled(Button)`
-  && {
-    min-width: 80px;
-    width: 310px;
-    white-space: nowrap;
-    background-color: #ff9800;
-    @media (max-width: 576px) {
-      font-size: 12px;
-      min-width: 60px;
-    }
-  }
-`;
 
 export default DetailBoard;

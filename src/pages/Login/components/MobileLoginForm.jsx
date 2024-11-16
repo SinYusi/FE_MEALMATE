@@ -41,6 +41,7 @@ const LoginBox = styled.form`
 const ErrorBox = styled.div`
   height: 50px;
   width: 350px;
+  margin-left: 50px;
 `
 
 const SignUpLink = styled(Link)`
