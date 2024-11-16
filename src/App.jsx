@@ -75,14 +75,6 @@ const WholeContainer = styled.div`
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
-
-  @media (max-width: 768px) {
-    background-color: lightgray;
-  }
-
-  @media (min-width: 769px) {
-    background-color: white;
-  }
 `;
 
 export default App;
