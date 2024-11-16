@@ -2,11 +2,10 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { Button, IconButton, TextField } from "@mui/material";
+import { IconButton } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
-import MessagePopup from "./components/MessagePopup";
 import calculateTimeAgo from "../../utils/calculateTimeAgo";
 import Logo from "../../components/Logo";
 import useGetDetailBoard from "../../services/useGetDetailBoard";
@@ -15,6 +14,7 @@ import OrangeBorderTextField from "../../components/OrangeBorderTextField";
 import OrangeBorderButton from "../../components/OrangeBorderButton";
 import OrangeFilledButton from "../../components/OrangeFilledButton";
 import usePatchRecruitment from "../../services/usePatchRecruitment";
+import MobileMessagePopup from "./components/MobileMessagePopup";
 
 const DetailBoard = () => {
   const email = useSelector((state) => state.auth.email);
@@ -49,7 +49,7 @@ const DetailBoard = () => {
       <Logo style={{ margin: 20, width: 300 }} />
       <DetailBoardContainer>
         {
-          isClickedSendBtn && <MessagePopup setIsClickedSendBtn={setIsClickedSendBtn} opponentId={detailBoard.writerId} />
+          isClickedSendBtn && <MobileMessagePopup setIsClickedSendBtn={setIsClickedSendBtn} opponentId={detailBoard.writerId} />
         }
         <div style={{ display: "flex", margin: "10px 20px 0px 20px", alignItems: "center" }}>
           {

@@ -3,11 +3,13 @@ import styled from "styled-components";
 import OrangeBorderTextField from "../../../components/OrangeBorderTextField";
 import OrangeFilledButton from "../../../components/OrangeFilledButton";
 import useLogin from "../../../services/useLogin";
+import { useSelector } from "react-redux";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { error, errorMessage, login } = useLogin();
+  const error = useSelector(state => state.auth.error);
+  const login = useLogin();
 
   const loginSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +19,7 @@ const LoginForm = () => {
   return (
     <LoginBox onSubmit={loginSubmit}>
       <ErrorBox>
-        {error ? <p style={{ fontSize: "14px", color: "red" }}>{errorMessage}</p> : null}
+        {error ? <p style={{ fontSize: "14px", color: "red" }}>{error}</p> : null}
       </ErrorBox>
       <OrangeBorderTextField label="아이디" type="email" onChange={(e) => setEmail(e.target.value)} style={{ width: 350, margin: "0px 0px 15px 0px" }} />
       <OrangeBorderTextField label="비밀번호" type="password" onChange={(e) => setPassword(e.target.value)} style={{ width: 350, margin: "15px 0px 30px 0px" }} />
