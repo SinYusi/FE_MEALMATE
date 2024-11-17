@@ -17,7 +17,11 @@ const DetailMessage = () => {
   const sendMessage = useSendMessage();
 
   useEffect(() => {
-    getMessageList(noteroomId);
+    const getData = () => {
+      getMessageList(noteroomId);
+    }
+    const intervalId = setInterval(getData, 500);
+    return () => clearInterval(intervalId);
   }, [noteroomId, getMessageList])
 
   const formatDateTime = (dateTime) => {

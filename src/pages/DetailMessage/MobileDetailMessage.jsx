@@ -17,7 +17,11 @@ const MobileDetailMessage = () => {
   const sendMessage = useSendMessage();
 
   useEffect(() => {
-    getMessageList(noteroomId);
+    const getData = () => {
+      getMessageList(noteroomId);
+    }
+    const intervalId = setInterval(getData, 500);
+    return () => clearInterval(intervalId);
   }, [noteroomId, getMessageList])
 
   const formatDateTime = (dateTime) => {
@@ -37,8 +41,8 @@ const MobileDetailMessage = () => {
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if (message !== "") {
-      setMessage("");
       await sendMessage(message, messageList[0].opponentId, noteroomId);
+      setMessage("");
       getMessageList(noteroomId);
     }
   }
