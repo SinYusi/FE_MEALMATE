@@ -7,8 +7,9 @@ const useGetWishList = () => {
   const [cookies] = useCookies(['access_token']);
   const token = cookies.access_token;
 
-  const getWishList = useCallback(() => {
-    axios.get('https://api.meal-mate.shop/api/wish', {
+  const getWishList = useCallback(async () => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    await axios.get(`${apiUrl}/wish`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
