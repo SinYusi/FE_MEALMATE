@@ -27,6 +27,7 @@ import MobileMessage from "./pages/Message/MobileMessage";
 import MobileDetailMessage from "./pages/DetailMessage/MobileDetailMessage";
 import { logout } from "./redux/authSlice";
 import MobileSearch from "./pages/Search/MobileSearch";
+import Search from "./pages/Search/Search";
 
 const theme = createTheme({
   typography: {
@@ -101,6 +102,7 @@ function App() {
           <Route path="/wish" element={<Wish />} />
           <Route path="/message" element={<Message />} />
           <Route path="/message/:id" element={<DetailMessage />} />
+          <Route path="/search" element={<Search />} />
         </Routes>
       </WholeContainer>
     </ThemeProvider>

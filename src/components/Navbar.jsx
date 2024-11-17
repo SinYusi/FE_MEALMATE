@@ -19,7 +19,7 @@ const Navbar = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
 
   const handleSearch = () => {
-    navigate(`/search/${query}`);
+    navigate(`/search?q=${encodeURIComponent(query)}`);
   };
 
   const handleKeyDown = (e) => {

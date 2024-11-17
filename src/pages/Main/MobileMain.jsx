@@ -16,7 +16,7 @@ const MobileMain = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    navigate(`/search?q=${query}`);
+    navigate(`/search?q=${encodeURIComponent(query)}`);
   };
 
   const handleKeyDown = (e) => {
@@ -31,7 +31,7 @@ const MobileMain = () => {
       <OrangeBorderTextField
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
-        style={{ margin: "10px 0px", width: "90%" }}
+        style={{margin: "10px 0px", width: "90%"}}
         InputProps={{
           endAdornment: (
             <SearchAdornment handleSearch={handleSearch} />

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Logo from "../../components/Logo";
 import noneImg from "../../assets/noneImg.png"
 
-const MobileSearch = () => {
+const Search = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q');
   const { searchRestaurants, search } = useGetSearch();
@@ -25,7 +25,7 @@ const MobileSearch = () => {
           ))
           :
           <>
-            <img src={noneImg} alt="없음" style={{width: 350}}/>
+            <img src={noneImg} alt="없음" />
             <p>검색어에 해당하는 식당이 없습니다.</p>
           </>
       }
@@ -35,10 +35,11 @@ const MobileSearch = () => {
 
 const SearchContainer = styled.div`
   width: 100%;
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `
 
-export default MobileSearch;
+export default Search;
