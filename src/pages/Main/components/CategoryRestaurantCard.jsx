@@ -9,17 +9,20 @@ const CategoryRestaurantCard = ({ restaurantData }) => {
   useEffect(() => {
     if (restaurantData) {
       const currentTime = new Date();
-      const currentFormattedTime = new Date(`1970-01-01T${currentTime.getHours()}:${currentTime.getMinutes()}:00`)
+      const hours = String(currentTime.getHours()).padStart(2, '0'); // 두 자리 보장
+      const minutes = String(currentTime.getMinutes()).padStart(2, '0'); // 두 자리 보장
+      const currentFormattedTime = new Date(`1970-01-01T${hours}:${minutes}:00`); // ISO 8601 형식
+
       const openAt = new Date(`1970-01-01T${restaurantData.openAt}:00`);
       const closeAt = new Date(`1970-01-01T${restaurantData.closeAt}:00`);
+
       if (currentFormattedTime >= openAt && currentFormattedTime <= closeAt) {
         setIsOpen(true);
-      }
-      else {
+      } else {
         setIsOpen(false);
       }
     }
-  }, [restaurantData])
+  }, [restaurantData]);
 
   return (
     <CategoryRestaurantCardContainer>
