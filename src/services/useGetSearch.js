@@ -1,16 +1,17 @@
 import axios from "axios";
 import { useState } from "react"
 
-const useGetSearch = async () => {
-  const [searchRestaurants, setSearchRestaurants] = useState("");
-  const search = (restaurantName) => {
+const useGetSearch = () => {
+  const [searchRestaurants, setSearchRestaurants] = useState([]);
+  const search = async (query) => {
+    const restaurantName = query.toString();
     const apiUrl = import.meta.env.VITE_API_URL;
-    axios.get(`${apiUrl}/restaurant/search`, {
+    await axios.get(`${apiUrl}/restaurant/search`, {
       restaurantName,
     }).then(response => {
       setSearchRestaurants(response.data);
     }).catch(error => {
-      console.error("검색 도중 오류 발생")
+      console.error(error);
     })
   }
   return { searchRestaurants, search };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { IconButton, TextField } from "@mui/material";
@@ -15,6 +15,7 @@ const MobileDetailMessage = () => {
   const email = useSelector(state => state.auth.email)
   const [message, setMessage] = useState("");
   const sendMessage = useSendMessage();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getData = () => {
@@ -49,7 +50,7 @@ const MobileDetailMessage = () => {
 
   return (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", marginTop: 20, width: "100%", marginBottom: 60 }}>
-      <Logo style={{ margin: 20, width: 300 }} />
+      <Logo style={{ margin: 20, width: 300 }} onClick={() => navigate('/')} />
       <form style={{ display: "flex", width: 350, alignItems: "center", justifyContent: "space-between" }} onClick={handleSendMessage}>
         <SendMessageTextField placeholder="답장하기" onChange={(e) => setMessage(e.target.value)} value={message} />
         <IconButton type="submit" style={{ width: 40, height: 40 }}>

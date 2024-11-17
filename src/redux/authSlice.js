@@ -52,7 +52,6 @@ export const reduxLogin = (email, password) => async (dispatch) => {
       httpOnly: false,
       secure: true,
       sameSite: 'Strict',
-      maxAge: expiresIn / 1000, // 쿠키 만료 시간 (초 단위)
     });
 
     dispatch(loginSuccess({ email, authority, tokenExpiry }));

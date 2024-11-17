@@ -6,7 +6,7 @@ const usePatchRecruitment = () => {
   const token = cookies.access_token;
   const patchRecruitment = async (boardId) => {
     const apiUrl = import.meta.env.VITE_API_URL;
-    await axios.patch(`${apiUrl}/board/update/recruitment/${boardId}`, {
+    await axios.patch(`${apiUrl}/board/update/recruitment/${boardId}`, {}, {
       headers: {
         Authorization: `Bearer ${token}`,
       }
